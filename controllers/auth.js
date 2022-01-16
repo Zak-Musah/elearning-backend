@@ -65,3 +65,22 @@ export const login = async (req, res) => {
     return res.status(400).send("Error. Try again.");
   }
 };
+
+export const logout = async (req, res) => {
+  try {
+    res.clearCookie("token");
+    return res.json({ message: "Sign out successfull" });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const currentUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select("-password").exec();
+    console.log("CURRENT_USER", user);
+    return res.json(user);
+  } catch (err) {
+    console.log(err);
+  }
+};
