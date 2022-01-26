@@ -36,10 +36,6 @@ export const register = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      school,
-      year,
-      program,
-      phoneNumber,
     });
     await user.save();
     return res.json({ ok: true });

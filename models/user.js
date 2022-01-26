@@ -20,38 +20,16 @@ const userSchema = new Schema(
       min: 6,
       max: 64,
     },
-    school: {
-      type: String,
-      trim: true,
-      required: false,
-    },
-    year: {
-      type: String,
-      trim: true,
-      required: false,
-    },
-    program: {
-      type: String,
-      trim: true,
-      required: false,
-    },
-    phoneNumber: {
-      type: String,
-      trim: true,
-      required: false,
-    },
     picture: {
       type: String,
       default: "/avatar.png",
     },
     role: {
       type: [String],
-      default: ["Student"],
-      enum: ["Student", "Instructor", "Admin"],
+      default: ["user"],
+      enum: ["user", "Instructor", "Admin"],
     },
-    stripe_account_id: "",
-    stripe_seller: {},
-    stripeSession: {},
+
     passwordResetCode: {
       data: String,
       default: "",
