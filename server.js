@@ -26,6 +26,9 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 
 // route
+app.get("/", (req, res) => {
+  res.send("Hub Project");
+});
 readdirSync("./routes").map((r) => app.use("/api", require(`./routes/${r}`)));
 
 // csrf
