@@ -15,10 +15,13 @@ import {
   resetPassword,
 } from "../controllers/auth";
 
-router.post("/register", register);
-router.post("/login", login);
+router.get("/", (req, res) => {
+  res.send("Hub Project");
+});
 router.get("/logout", logout);
 router.get("/current-user", requireSignin, currentUser);
+router.post("/register", register);
+router.post("/login", login);
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
 
