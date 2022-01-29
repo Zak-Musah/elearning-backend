@@ -10,7 +10,7 @@ require("dotenv").config();
 const csrfProtection = csrf({ cookie: true });
 // create express app
 const app = express();
-console.log(process.env.DATABASE);
+
 // db
 mongoose
   .connect(process.env.DATABASE, {
