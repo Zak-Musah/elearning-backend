@@ -27,7 +27,7 @@ const userSchema = new Schema(
     role: {
       type: [String],
       default: ["user"],
-      enum: ["user", "Instructor", "Admin"],
+      enum: ["user", "Creator", "Admin"],
     },
 
     passwordResetCode: {

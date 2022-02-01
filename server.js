@@ -33,10 +33,11 @@ readdirSync("./routes").map((r) => app.use("/api", require(`./routes/${r}`)));
 app.use(csrfProtection);
 
 app.get("/api/csrf-token", (req, res) => {
+  console.log(req.body);
   res.json({ csrfToken: req.csrfToken() });
 });
 
 // port
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8001;
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));
