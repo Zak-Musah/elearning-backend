@@ -1,6 +1,7 @@
 import AWS from "aws-sdk";
 import { nanoid } from "nanoid";
-
+import Business from "../models/business";
+import slugify from "slugify";
 const awsConfig = {
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -45,5 +46,26 @@ export const uploadImage = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
+  }
+};
+
+export const createContent = async (req, res) => {
+  console.log(req);
+  try {
+    const alreadyExist = await Business.findOne({
+      slug: slugify(req.body.name.toLowerCase()),
+    });
+    if (alreadyExist) return res.status(400).send("Name is taken");
+
+    // const business = await new Business({
+    //   slug: slugify(req.body.name),
+    //   creator: req.user._id,
+    //   ...req.body,
+    // }).save();
+
+    // res.json(business);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).send("Business data creation failed. Try again.");
   }
 };

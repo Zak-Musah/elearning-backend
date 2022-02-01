@@ -3,11 +3,14 @@ import express from "express";
 const router = express.Router();
 
 // middleware
-import { requireSignin } from "../middlewares";
+// import { isCreator, requireSignin } from "../middlewares";
 
 // controllers
-import { uploadImage } from "../controllers/business";
+import { createContent, uploadImage } from "../controllers/business";
 
+// image upload
 router.post("/business/upload-image", uploadImage);
+
+router.post("/business", createContent);
 
 module.exports = router;
