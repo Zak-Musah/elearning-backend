@@ -12,7 +12,6 @@ const awsConfig = {
 const S3 = new AWS.S3(awsConfig);
 
 export const uploadImage = async (req, res) => {
-  // console.log(req.body);
   try {
     const { image } = req.body;
     if (!image) return res.status(400).send("No image");
@@ -50,22 +49,31 @@ export const uploadImage = async (req, res) => {
 };
 
 export const createContent = async (req, res) => {
-  console.log(req);
   try {
     const alreadyExist = await Business.findOne({
       slug: slugify(req.body.name.toLowerCase()),
     });
     if (alreadyExist) return res.status(400).send("Name is taken");
+    // TODO work on logged in user middleware
+    const business = await new Business({
+      slug: slugify(req.body.name),
+      creator: "61f57f342e1be47073cee694",
+      ...req.body,
+    }).save();
 
-    // const business = await new Business({
-    //   slug: slugify(req.body.name),
-    //   creator: req.user._id,
-    //   ...req.body,
-    // }).save();
-
-    // res.json(business);
+    res.json(business);
   } catch (err) {
     console.log(err);
     return res.status(400).send("Business data creation failed. Try again.");
+  }
+};
+
+export const getBusinessInfo = async (req, res) => {
+  console.log("request made");
+  try {
+    const businessData = await Business.find();
+    res.status(200).json(businessData);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
   }
 };
