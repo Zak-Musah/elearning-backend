@@ -28,6 +28,11 @@ const businessSchema = new Schema(
       trim: true,
       required: true,
     },
+    category: {
+      type: String,
+      trim: true,
+      required: true,
+    },
     owners: {
       type: [],
       trim: true,
@@ -37,7 +42,9 @@ const businessSchema = new Schema(
       type: {},
       default: {},
     },
-    artifacts: [],
+    artifacts: {
+      type: [{}],
+    },
     role: {
       type: [String],
       default: ["user"],
