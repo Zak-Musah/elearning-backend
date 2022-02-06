@@ -28,6 +28,16 @@ const businessSchema = new Schema(
       trim: true,
       required: true,
     },
+    website: {
+      type: String,
+      trim: true,
+      required: false,
+    },
+    address: {
+      type: String,
+      trim: true,
+      required: true,
+    },
     category: {
       type: String,
       trim: true,
