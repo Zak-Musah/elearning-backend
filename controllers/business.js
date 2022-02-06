@@ -13,7 +13,7 @@ const S3 = new AWS.S3(awsConfig);
 
 export const uploadImage = async (req, res) => {
   try {
-    const { image } = req.body;
+    const { image, fileName } = req.body;
     if (!image) return res.status(400).send("No image");
 
     // prepare the image
@@ -23,11 +23,10 @@ export const uploadImage = async (req, res) => {
     );
 
     const type = image.split(";")[0].split("/")[1];
-
     // image params
     const params = {
       Bucket: "se-hub-1",
-      Key: `${nanoid()}.${type}`,
+      Key: fileName,
       Body: base64Data,
       ACL: "public-read",
       ContentEncoding: "base64",
@@ -40,8 +39,29 @@ export const uploadImage = async (req, res) => {
         console.log(err);
         return res.sendStatus(400);
       }
-      console.log(data);
       res.send(data);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const removeImage = async (req, res) => {
+  try {
+    const { bucket, key } = req.body;
+    // image params
+    const params = {
+      Bucket: bucket,
+      Key: key,
+    };
+
+    // send remove request to s3
+    S3.deleteObject(params, (err, data) => {
+      if (err) {
+        console.log(err);
+        res.sendStatus(400);
+      }
+      res.send({ ok: true });
     });
   } catch (err) {
     console.log(err);
